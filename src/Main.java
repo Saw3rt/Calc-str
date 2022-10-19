@@ -3,18 +3,20 @@ import java.util.Scanner;
 public class Main {
     //111
     public static void main(String[] args) throws Exception {
-        String str = "10000 + 2000000000";
         Scanner scn = new Scanner(System.in);
         String exp = scn.nextLine();
         char action;
-        String[] data = str.split(" ");
-        if(str.length()>10){
+        String[] data = exp.split(" ");
+        if (exp.length() > 10) {
             throw new Exception("длина строки больше 10 символов");
         }
-        int a = Integer.parseInt(data[0]);
-        int b = Integer.parseInt(data[1]);
-        if(a>10 || b>10){
-            throw new Exception("цифра больше 10");
+        if (!data[0].contains("\"") && !data[2].contains("\"")) {
+            int a = Integer.parseInt(data[0]);
+            int b = Integer.parseInt(data[2]);
+            if (a > 10 || b > 10) {
+                throw new Exception("цифра больше 10");
+            }
+
         }
         if (exp.contains(" + ")) {
             data = exp.split(" \\+ ");
@@ -28,7 +30,7 @@ public class Main {
         } else if (exp.contains(" / ")) {
             data = exp.split(" / ");
             action = '/';
-        }else{
+        } else {
             throw new Exception("Некорректный знак действия");
         }
         if (action == '*' || action == '/') {
@@ -44,25 +46,26 @@ public class Main {
             int multiplier = Integer.parseInt(data[1]);
             String result = "";
             for (int i = 0; i < multiplier; i++) {
-                result+=data[0];
+                result += data[0];
             }
             printInQuotes(result);
         } else if (action == '-') {
             int index = data[0].indexOf(data[1]);
-            if(index == -1){
+            if (index == -1) {
                 printInQuotes(data[0]);
-            }else{
+            } else {
                 String result = data[0].substring(0, index);
-                result+=data[0].substring(index+data[1].length());
+                result += data[0].substring(index + data[1].length());
                 printInQuotes(result);
             }
-        }else{
-            int newLen = data[0].length()/Integer.parseInt(data[1]);
-            String result = data[0].substring(0,newLen);
+        } else {
+            int newLen = data[0].length() / Integer.parseInt(data[1]);
+            String result = data[0].substring(0, newLen);
             printInQuotes(result);
         }
     }
-    static void printInQuotes(String text){
-        System.out.println("\""+text+"\"");
+
+    static void printInQuotes(String text) {
+        System.out.println("\"" + text + "\"");
     }
 }
