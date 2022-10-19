@@ -2,10 +2,19 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        String str = "10000 + 2000000000";
         Scanner scn = new Scanner(System.in);
         String exp = scn.nextLine();
         char action;
-        String[] data;
+        String[] data = str.split(" ");
+        if(str.length()>10){
+            throw new Exception("длина строки больше 10 символов");
+        }
+        int a = Integer.parseInt(data[0]);
+        int b = Integer.parseInt(data[1]);
+        if(a>10 || b>10){
+            throw new Exception("цифра больше 10");
+        }
         if (exp.contains(" + ")) {
             data = exp.split(" \\+ ");
             action = '+';
@@ -51,8 +60,6 @@ public class Main {
             String result = data[0].substring(0,newLen);
             printInQuotes(result);
         }
-
-
     }
     static void printInQuotes(String text){
         System.out.println("\""+text+"\"");
